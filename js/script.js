@@ -1,8 +1,13 @@
+var currentUser="";
+var latestPhoto;
+
+
 
 //loads justin bieber images, on page onload automatically
 $(document).ready(function () {
+  var image="";
     var URL = "http://whateverorigin.org/get?url=" + encodeURIComponent("https://instagram.com/justinbieber/media");
-
+    currentUser = "justinbieber";
  $.ajax({
         url: URL,
         dataType: "jsonp",
@@ -10,9 +15,13 @@ $(document).ready(function () {
         success: function (response) {
              var data = response.contents;
             for (var i = 0; i < data.items.length; i++) {
-                var image = '<img src="'+data.items[i].images.standard_resolution.url+'" alt="" />';
-                $(image).appendTo(".images");
+
+                 image += '<img src="'+data.items[i].images.standard_resolution.url+'" alt="" />';
+               
             }
+            $(image).appendTo(".images");
+             $("#userImages").show( "slow", function(){});
+            latestPhoto = data.items[0].images.standard_resolution.url;
         },
         error: function () {
             var error = "<p>error processing ajax request</p>";
@@ -29,6 +38,8 @@ $(document).ready(function () {
 
       function search(){
      var value = $("#search").val();
+      currentUser = value;
+      
        $("#userImages").empty();
 
       var URL = "http://whateverorigin.org/get?url=" + encodeURIComponent("http://instagram.com/" + value + "/media");
@@ -45,6 +56,7 @@ $(document).ready(function () {
 
         $("#userImages").show( "slow", function(){});
             }
+            latestPhoto = data.items[0].images.standard_resolution.url;
         },
         error: function () {
             var error = "<p>error processing ajax request</p>";
@@ -65,5 +77,52 @@ $(document).ready(function () {
 }
 })  
 ///
+
+////realtime updates
+function realTime(){
+  var value = currentUser;
+  var URL = "http://whateverorigin.org/get?url=" + encodeURIComponent("http://instagram.com/" + value + "/media");
+
+ $.ajax({
+        url: URL,
+        dataType: "jsonp",
+        cache: false,
+        success: function (response) {
+             var data = response.contents;
+            
+            
+            if (data.items[0].images.standard_resolution.url !== latestPhoto){
+                   $("#userImages").empty();
+                   for (var i = 0; i < data.items.length; i++) {
+                var image = '<img src="'+data.items[i].images.standard_resolution.url+'" alt="" />';
+                $(image).appendTo(".images");
+
+        $("#userImages").show( "slow", function(){});
+            }
+            latestPhoto = data.items[0].images.standard_resolution.url;
+        }
+
+            
+
+        },
+        error: function () {
+            console.log(error);
+        }
+})
+
+}
+
+
+setInterval(realTime, 5000);
+
+
+
+
+
+
+
+
+
+
 
 
