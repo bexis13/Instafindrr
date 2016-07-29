@@ -1,6 +1,7 @@
 
+//loads justin bieber images, on page onload automatically
 $(document).ready(function () {
-    var URL = "http://whateverorigin.org/get?url=" + encodeURIComponent("http://instagram.com/justinbieber/media");
+    var URL = "http://whateverorigin.org/get?url=" + encodeURIComponent("https://instagram.com/justinbieber/media");
 
  $.ajax({
         url: URL,
@@ -21,7 +22,10 @@ $(document).ready(function () {
 })
 
 })
+//////////////
 
+
+// search for new users
 
       function search(){
      var value = $("#search").val();
@@ -50,17 +54,16 @@ $(document).ready(function () {
 
 
 }
+/////
 
-
+///trigger the search function when enter key is pressed
 
   $("input").keyup(function(event){
         if (event.which == 13){
 
-          
-    search();
-
+          search();
 }
 })  
-
+///
 
 
