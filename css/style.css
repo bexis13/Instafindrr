@@ -1,0 +1,34 @@
+html{
+	width:100%;
+}
+
+body{
+	font-family: sans-serif, helvetica, serif;
+	width:100%;
+}
+
+nav {
+  	background-color: #05ABE3;
+    line-height: 60px;
+
+}
+
+img {
+    
+    margin: 15px;
+    max-width: 25%;
+    height: auto;
+
+}
+
+.images{
+	margin-top: 250px;
+}
+
+.container {
+  padding-right: ;
+  padding-left: 10%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
